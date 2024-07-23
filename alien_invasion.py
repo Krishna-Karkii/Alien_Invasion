@@ -10,6 +10,8 @@ class AlienInvasion:
         self.screen = pygame.display.set_mode((1200, 800))
         pygame.display.set_caption("Alien Invasion")
 
+        self.clock = pygame.time.Clock()
+
     def run_game(self):
         """Start the main loop for the game"""
         while True:
@@ -20,6 +22,9 @@ class AlienInvasion:
 
             # Make the most recently drawn screen visible
             pygame.display.flip()
+
+            # Customizing for 60 Frames per second
+            self.clock.tick(60)
 
 
 if __name__ == "__main__":
