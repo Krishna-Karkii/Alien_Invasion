@@ -28,10 +28,14 @@ class Ship:
         self.screen.blit(self.image, self.rect)
 
     def update(self):
-        if self.moving_right:
+        """update the ship position based on movement flags."""
+
+        # moving the ship right until the right edge, if right flag is true
+        if self.moving_right and self.rect.right < self.screen_rect.right:
             self.x += self.settings.speed
 
-        if self.moving_left:
+        # moving the ship left until the left edge, if left flag is true
+        if self.moving_left and self.rect.left > 0:
             self.x -= self.settings.speed
 
         self.rect.x = self.x
