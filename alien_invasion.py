@@ -31,21 +31,15 @@ class AlienInvasion:
 
     def _check_events(self):
         """Watch for keyword and mouse events."""
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
+        for self.event in pygame.event.get():
+            if self.event.type == pygame.QUIT:
                 sys.exit()
 
-            elif event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_RIGHT:
-                    self.ship.moving_right = True
-                elif event.key == pygame.K_LEFT:
-                    self.ship.moving_left = True
+            elif self.event.type == pygame.KEYDOWN:
+                self._check_keydown()
 
-            elif event.type == pygame.KEYUP:
-                if event.key == pygame.K_RIGHT:
-                    self.ship.moving_right = False
-                if event.key == pygame.K_LEFT:
-                    self.ship.moving_left = False
+            elif self.event.type == pygame.KEYUP:
+                self._check_keyup()
 
     def _update_screen(self):
         """Update images on screen and flip to new screen"""
@@ -53,6 +47,20 @@ class AlienInvasion:
         self.ship.blitme()
 
         pygame.display.flip()
+
+    def _check_keydown(self):
+        """checks for event related to keydown"""
+        if self.event.key == pygame.K_RIGHT:
+            self.ship.moving_right = True
+        elif self.event.key == pygame.K_LEFT:
+            self.ship.moving_left = True
+
+    def _check_keyup(self):
+        """checks for event related to keydown"""
+        if self.event.key == pygame.K_RIGHT:
+            self.ship.moving_right = False
+        if self.event.key == pygame.K_LEFT:
+            self.ship.moving_left = False
 
 
 if __name__ == "__main__":
