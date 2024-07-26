@@ -10,7 +10,10 @@ class AlienInvasion:
         pygame.init()
         self.Settings = Settings()
 
-        self.screen = pygame.display.set_mode((self.Settings.screen_width, self.Settings.screen_height))
+        # create frame, get frame width, frame height,and set window title
+        self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+        self.Settings.screen_width = self.screen.get_width()
+        self.Settings.screen_height = self.screen.get_height()
         pygame.display.set_caption("Alien Invasion")
 
         self.clock = pygame.time.Clock()
