@@ -30,12 +30,7 @@ class AlienInvasion:
             # call the methods required in main loop
             self._check_events()
             self.ship.update()
-            self.bullets.update()
-
-            for bullet in self.bullets.copy():
-                if bullet.rect.bottom <= 0:
-                    self.bullets.remove(bullet)
-
+            self._update_bullets()
             self._update_screen()
 
             # Customizing for 60 Frames per second
@@ -85,6 +80,15 @@ class AlienInvasion:
         if len(self.bullets) < self.Settings.bullets_allowed:
             new_bullet = Bullet(self)
             self.bullets.add(new_bullet)
+
+    def _update_bullets(self):
+        """manages the bullets in the screen"""
+        self.bullets.update()
+
+        # remove unnecessary bullets for bullets group
+        for bullet in self.bullets.copy():
+            if bullet.rect.bottom <= 0:
+                self.bullets.remove(bullet)
 
 
 if __name__ == "__main__":
