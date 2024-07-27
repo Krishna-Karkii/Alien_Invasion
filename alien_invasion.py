@@ -82,8 +82,9 @@ class AlienInvasion:
 
     def _fire_bullet(self):
         """create a bullet instance and add into bullets group"""
-        new_bullet = Bullet(self)
-        self.bullets.add(new_bullet)
+        if len(self.bullets) < self.Settings.bullets_allowed:
+            new_bullet = Bullet(self)
+            self.bullets.add(new_bullet)
 
 
 if __name__ == "__main__":
