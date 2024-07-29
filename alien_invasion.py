@@ -96,8 +96,16 @@ class AlienInvasion:
 
     def _create_fleet(self):
         """update the aliens on the screen"""
-        new_alien = Alien(self)
-        self.aliens.add(new_alien)
+        alien = Alien(self)
+        alien_width = alien.rect.width
+
+        current_x = alien_width
+        while current_x < (self.Settings.screen_width - 2 * alien_width):
+            new_alien = Alien(self)
+            new_alien.x = current_x
+            new_alien.rect.x = current_x
+            self.aliens.add(new_alien)
+            current_x += 2 * alien_width
 
 
 if __name__ == "__main__":
