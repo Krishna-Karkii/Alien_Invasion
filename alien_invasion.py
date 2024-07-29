@@ -81,6 +81,8 @@ class AlienInvasion:
 
     def _fire_bullet(self):
         """create a bullet instance and add into bullets group"""
+
+        # create condition to allow the numbers of bullets_allowed in settings
         if len(self.bullets) < self.Settings.bullets_allowed:
             new_bullet = Bullet(self)
             self.bullets.add(new_bullet)
@@ -95,20 +97,29 @@ class AlienInvasion:
                 self.bullets.remove(bullet)
 
     def _create_fleet(self):
-        """update the aliens on the screen"""
+        """create the fleet of alien"""
+        # create an alien and keep adding until no room left
         alien = Alien(self)
-        alien_width = alien.rect.width
+        alien_width, alien_height = alien.rect.size
 
-        current_x = alien_width
-        while current_x < (self.Settings.screen_width - 2 * alien_width):
-            self._create_alien(current_x)
-            current_x += 2 * alien_width
+        current_x, current_y = alien_width, alien_height
 
-    def _create_alien(self, position_x):
+        # add the alien until the condition met, leaving 7 alien height space
+        while current_y < (self.Settings.screen_height - 7 * alien_height):
+            while current_x < (self.Settings.screen_width - 2 * alien_width):
+                self._create_alien(current_x, current_y)
+                current_x += 2 * alien_width
+
+            # reset the current_x, increment the value of current_y
+            current_x = alien_width
+            current_y += 2 * alien_height
+
+    def _create_alien(self, position_x, position_y):
         """create an alien and add the alien in the group"""
         new_alien = Alien(self)
         new_alien.x = position_x
         new_alien.rect.x = position_x
+        new_alien.rect.y = position_y
         self.aliens.add(new_alien)
 
 
