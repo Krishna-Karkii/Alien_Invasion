@@ -101,11 +101,15 @@ class AlienInvasion:
 
         current_x = alien_width
         while current_x < (self.Settings.screen_width - 2 * alien_width):
-            new_alien = Alien(self)
-            new_alien.x = current_x
-            new_alien.rect.x = current_x
-            self.aliens.add(new_alien)
+            self._create_alien(current_x)
             current_x += 2 * alien_width
+
+    def _create_alien(self, position_x):
+        """create an alien and add the alien in the group"""
+        new_alien = Alien(self)
+        new_alien.x = position_x
+        new_alien.rect.x = position_x
+        self.aliens.add(new_alien)
 
 
 if __name__ == "__main__":
