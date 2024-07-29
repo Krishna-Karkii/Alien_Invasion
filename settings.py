@@ -18,3 +18,6 @@ class Settings:
 
         # alien settings
         self.alien_speed = 1.0
+        self.fleet_dropdown = 10.0
+        # -1 for the left direction, 1 for the right direction
+        self.fleet_direction = 1.0
