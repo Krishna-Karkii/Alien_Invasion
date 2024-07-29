@@ -35,6 +35,7 @@ class AlienInvasion:
             self._check_events()
             self.ship.update()
             self._update_bullets()
+            self._update_alien()
             self._update_screen()
 
             # Customizing for 60 Frames per second
@@ -121,6 +122,9 @@ class AlienInvasion:
         new_alien.rect.x = position_x
         new_alien.rect.y = position_y
         self.aliens.add(new_alien)
+
+    def _update_alien(self):
+        self.aliens.update()
 
 
 if __name__ == "__main__":
