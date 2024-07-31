@@ -123,6 +123,16 @@ class AlienInvasion:
         new_alien.rect.y = position_y
         self.aliens.add(new_alien)
 
+    def _check_fleet_edges(self):
+        """check if the fleet has hit edge"""
+        for alien in self.aliens.sprites():
+            if alien.check_edge():
+                self._change_fleet_direction()
+                break
+
+    def _change_fleet_direction(self):
+        pass
+
     def _update_alien(self):
         self.aliens.update()
 
