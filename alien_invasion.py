@@ -131,7 +131,11 @@ class AlienInvasion:
                 break
 
     def _change_fleet_direction(self):
-        pass
+        """change fleet direction if fleet has hit the edge"""
+        """fleet dropdown if the fleet hit the edge"""
+        for alien in self.aliens.sprites():
+            alien.rect.y += self.Settings.fleet_dropdown
+        self.Settings.fleet_direction *= -1
 
     def _update_alien(self):
         self.aliens.update()
