@@ -138,6 +138,8 @@ class AlienInvasion:
         self.Settings.fleet_direction *= -1
 
     def _update_alien(self):
+        """update alien fleet movement"""
+        self._check_fleet_edges()
         self.aliens.update()
 
 
