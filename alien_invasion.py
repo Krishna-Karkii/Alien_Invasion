@@ -1,6 +1,6 @@
 import sys
 import pygame
-from time import time
+import time
 
 from settings import Settings
 from ship import Ship
@@ -156,7 +156,17 @@ class AlienInvasion:
 
     def _ship_hit(self):
         """This method handles necessary tasks after ship is hit"""
-        pass
+        self.game_stats.ships_left -= 1
+
+        # empty the aliens and bullets after the ship is hit
+        self.aliens.empty()
+        self.bullets.empty()
+
+        # create new fleet and center the ship
+        self._create_fleet()
+        self.ship.center_ship()
+
+        time.sleep(0.5)
 
     def _update_alien(self):
         """update alien fleet movement"""
@@ -165,7 +175,7 @@ class AlienInvasion:
 
         # Look for alien ship collision
         if pygame.sprite.spritecollideany(self.ship, self.aliens):
-            print("ship hit")
+            self._ship_hit()
 
 
 if __name__ == "__main__":
