@@ -1,9 +1,12 @@
 import sys
 import pygame
+from time import time
+
 from settings import Settings
 from ship import Ship
 from bullet import Bullet
 from alien import Alien
+from game_statistics import GameStats
 
 
 class AlienInvasion:
@@ -19,6 +22,8 @@ class AlienInvasion:
         pygame.display.set_caption("Alien Invasion")
 
         self.clock = pygame.time.Clock()
+
+        self.game_stats = GameStats(self)
 
         self.ship = Ship(self)
 
@@ -148,6 +153,10 @@ class AlienInvasion:
         for alien in self.aliens.sprites():
             alien.rect.y += self.Settings.fleet_dropdown
         self.Settings.fleet_direction *= -1
+
+    def _ship_hit(self):
+        """This method handles necessary tasks after ship is hit"""
+        pass
 
     def _update_alien(self):
         """update alien fleet movement"""
