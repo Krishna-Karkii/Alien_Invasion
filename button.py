@@ -6,7 +6,7 @@ class Button:
     def __init__(self, ai_main, msg):
         """initialize the attributes of button class"""
         self.screen = ai_main.screen
-        self.screen_rect = ai_main.screen_rect
+        self.screen_rect = ai_main.screen.get_rect()
 
         # define the properties of the button and font
         self.width, self.height = 200, 50

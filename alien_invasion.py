@@ -104,7 +104,7 @@ class AlienInvasion:
 
     def _check_play_button(self, mouse_pos):
         """This method checks whether the mouse down collided with game_button"""
-        if self.game_button.rect.colliderect(mouse_pos):
+        if self.game_button.rect.collidepoint(mouse_pos):
             self.game_active = True
 
     def _fire_bullet(self):
