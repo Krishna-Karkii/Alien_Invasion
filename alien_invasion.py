@@ -7,6 +7,7 @@ from ship import Ship
 from bullet import Bullet
 from alien import Alien
 from game_statistics import GameStats
+from button import Button
 
 
 class AlienInvasion:
@@ -35,6 +36,9 @@ class AlienInvasion:
         # initialize game active flag check if game is over
         self.game_active = False
 
+        # initialize the button
+        self.game_button = Button(self, "Play")
+
     def run_game(self):
         """Start the main loop for the game"""
         while True:
@@ -62,6 +66,10 @@ class AlienInvasion:
             elif self.event.type == pygame.KEYUP:
                 self._check_keyup()
 
+            elif self.event.type == pygame.MOUSEBUTTONDOWN:
+                mouse_pos = pygame.mouse.get_pos()
+                self._check_play_button(mouse_pos)
+
     def _update_screen(self):
         """Update images on screen and flip to new screen"""
         self.screen.fill(self.Settings.bg_color)
@@ -69,6 +77,11 @@ class AlienInvasion:
         for bullet in self.bullets.sprites():
             bullet.draw_bullet()
         self.aliens.draw(self.screen)
+
+        # if game not active draw the button
+        if not self.game_active:
+            self.game_button.draw_button()
+
         pygame.display.flip()
 
     def _check_keydown(self):
@@ -88,6 +101,11 @@ class AlienInvasion:
             self.ship.moving_right = False
         if self.event.key == pygame.K_LEFT:
             self.ship.moving_left = False
+
+    def _check_play_button(self, mouse_pos):
+        """This method checks whether the mouse down collided with game_button"""
+        if self.game_button.rect.colliderect(mouse_pos):
+            self.game_active = True
 
     def _fire_bullet(self):
         """create a bullet instance and add into bullets group"""
