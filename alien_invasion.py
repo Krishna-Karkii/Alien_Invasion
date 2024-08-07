@@ -105,7 +105,17 @@ class AlienInvasion:
     def _check_play_button(self, mouse_pos):
         """This method checks whether the mouse down collided with game_button"""
         if self.game_button.rect.collidepoint(mouse_pos):
+            # reset the game stats
+            self.game_stats.reset_stats()
             self.game_active = True
+
+            # remove the remaining fleet and bullets if game over
+            self.aliens.empty()
+            self.bullets.empty()
+
+            # create new fleet and recenter the ship
+            self._create_fleet()
+            self.ship.center_ship()
 
     def _fire_bullet(self):
         """create a bullet instance and add into bullets group"""
