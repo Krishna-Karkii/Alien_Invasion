@@ -32,17 +32,21 @@ class AlienInvasion:
 
         self._create_fleet()
 
+        # initialize game active flag check if game is over
+        self.game_active = False
+
     def run_game(self):
         """Start the main loop for the game"""
         while True:
-
             # call the methods required in main loop
             self._check_events()
-            self.ship.update()
-            self._update_bullets()
-            self._update_alien()
-            self._update_screen()
 
+            if self.game_active:
+                self.ship.update()
+                self._update_bullets()
+                self._update_alien()
+
+            self._update_screen()
             # Customizing for 60 Frames per second
             self.clock.tick(80)
 
@@ -156,17 +160,21 @@ class AlienInvasion:
 
     def _ship_hit(self):
         """This method handles necessary tasks after ship is hit"""
-        self.game_stats.ships_left -= 1
+        if self.game_stats.ships_left > 0:
+            self.game_stats.ships_left -= 1
 
-        # empty the aliens and bullets after the ship is hit
-        self.aliens.empty()
-        self.bullets.empty()
+            # empty the aliens and bullets after the ship is hit
+            self.aliens.empty()
+            self.bullets.empty()
 
-        # create new fleet and center the ship
-        self._create_fleet()
-        self.ship.center_ship()
+            # create new fleet and center the ship
+            self._create_fleet()
+            self.ship.center_ship()
 
-        time.sleep(0.5)
+            time.sleep(0.5)
+
+        else:
+            self.game_active = False
 
     def _check_alien_bottom(self):
         """This method checks whether the alien has reached the bottom of the screen."""
