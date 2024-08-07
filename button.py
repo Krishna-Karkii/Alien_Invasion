@@ -1,0 +1,21 @@
+import pygame.font
+
+
+class Button:
+    """This class creates a button, which when clicked initiate the start of a new game"""
+    def __init__(self, ai_main, msg):
+        """initialize the attributes of button class"""
+        self.screen = ai_main.screen
+        self.screen_rect = ai_main.screen_rect
+
+        # define the properties of the button and font
+        self.width, self.height = 200, 50
+        self.button_color = (0, 135, 0)
+        self.text_color = (255, 255, 255)
+        self.font = pygame.font.SysFont(None, 48)
+
+        # create rect and centralize it on the screen
+        self.rect = pygame.Rect(0, 0, self.width, self.height)
+        self.rect.center = self.screen_rect.center
+
+        self._prep_msg(msg)
