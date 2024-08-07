@@ -104,7 +104,10 @@ class AlienInvasion:
 
     def _check_play_button(self, mouse_pos):
         """This method checks whether the mouse down collided with game_button"""
-        if self.game_button.rect.collidepoint(mouse_pos):
+        button_clicked = self.game_button.rect.collidepoint(mouse_pos)
+
+        # only executed if button pressed and game is inactive
+        if button_clicked and not self.game_active:
             # reset the game stats
             self.game_stats.reset_stats()
             self.game_active = True
