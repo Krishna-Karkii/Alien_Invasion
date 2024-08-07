@@ -8,6 +8,7 @@ from bullet import Bullet
 from alien import Alien
 from game_statistics import GameStats
 from button import Button
+from play_text_info import SpaceInfoTexT
 
 
 class AlienInvasion:
@@ -36,8 +37,9 @@ class AlienInvasion:
         # initialize game active flag check if game is over
         self.game_active = False
 
-        # initialize the button
+        # initialize the button and info text
         self.game_button = Button(self, "Play")
+        self.info_text = SpaceInfoTexT(self)
 
     def run_game(self):
         """Start the main loop for the game"""
@@ -78,9 +80,10 @@ class AlienInvasion:
             bullet.draw_bullet()
         self.aliens.draw(self.screen)
 
-        # if game not active draw the button
+        # if game not active draw the button and text info
         if not self.game_active:
             self.game_button.draw_button()
+            self.info_text.draw_text()
 
         pygame.display.flip()
 
@@ -94,6 +97,8 @@ class AlienInvasion:
             sys.exit()
         elif self.event.key == pygame.K_SPACE:
             self._fire_bullet()
+            if not self.game_active:
+                self.game_active = True
 
     def _check_keyup(self):
         """checks for event related to keydown"""
@@ -119,7 +124,7 @@ class AlienInvasion:
             # create new fleet and recenter the ship
             self._create_fleet()
             self.ship.center_ship()
-            
+
             # hide cursor
             pygame.mouse.set_visible(False)
 
