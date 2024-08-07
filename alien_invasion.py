@@ -119,6 +119,9 @@ class AlienInvasion:
             # create new fleet and recenter the ship
             self._create_fleet()
             self.ship.center_ship()
+            
+            # hide cursor
+            pygame.mouse.set_visible(False)
 
     def _fire_bullet(self):
         """create a bullet instance and add into bullets group"""
@@ -206,6 +209,7 @@ class AlienInvasion:
 
         else:
             self.game_active = False
+            pygame.mouse.set_visible(True)
 
     def _check_alien_bottom(self):
         """This method checks whether the alien has reached the bottom of the screen."""
