@@ -31,3 +31,8 @@ class Settings:
         # -1 for the left direction, 1 for the right direction
         self.fleet_direction = 1.0
 
+    def speed_up(self):
+        """speed up the overall game"""
+        self.ship_speed *= self.speed_up_scale
+        self.alien_speed *= self.speed_up_scale
+        self.bullet_speed *= self.speed_up_scale

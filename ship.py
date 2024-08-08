@@ -32,11 +32,11 @@ class Ship:
 
         # moving the ship right until the right edge, if right flag is true
         if self.moving_right and self.rect.right < self.screen_rect.right:
-            self.x += self.settings.speed
+            self.x += self.settings.ship_speed
 
         # moving the ship left until the left edge, if left flag is true
         if self.moving_left and self.rect.left > 0:
-            self.x -= self.settings.speed
+            self.x -= self.settings.ship_speed
 
         self.rect.x = self.x
 

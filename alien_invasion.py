@@ -109,12 +109,13 @@ class AlienInvasion:
 
     def _check_play_button(self, mouse_pos, key_pressed):
         """This method checks whether the mouse down collided with game_button"""
+        button_clicked = False
         if mouse_pos != "":
             button_clicked = self.game_button.rect.collidepoint(mouse_pos)
 
         # only executed if button pressed and game is inactive,
         # or the space key is pressed
-        if key_pressed or (button_clicked and not self.game_active):
+        if (key_pressed and not self.game_active) or (button_clicked and not self.game_active):
             # reset the game stats
             self.game_stats.reset_stats()
             self.game_active = True
@@ -147,6 +148,7 @@ class AlienInvasion:
             # Destroy existing bullets and create new fleet.
             self.bullets.empty()
             self._create_fleet()
+            self.Settings.speed_up()
 
     def _update_bullets(self):
         """manages the bullets in the screen"""
@@ -216,6 +218,7 @@ class AlienInvasion:
 
         else:
             self.game_active = False
+            self.Settings.initialize_dynamic_settings()
             pygame.mouse.set_visible(True)
 
     def _check_alien_bottom(self):
