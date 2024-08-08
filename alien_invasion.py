@@ -70,7 +70,7 @@ class AlienInvasion:
 
             elif self.event.type == pygame.MOUSEBUTTONDOWN:
                 mouse_pos = pygame.mouse.get_pos()
-                self._check_play_button(mouse_pos)
+                self._check_play_button(mouse_pos, key_pressed=False)
 
     def _update_screen(self):
         """Update images on screen and flip to new screen"""
@@ -98,7 +98,7 @@ class AlienInvasion:
         elif self.event.key == pygame.K_SPACE:
             self._fire_bullet()
             if not self.game_active:
-                self.game_active = True
+                self._check_play_button(mouse_pos="", key_pressed=True)
 
     def _check_keyup(self):
         """checks for event related to keydown"""
@@ -107,12 +107,14 @@ class AlienInvasion:
         if self.event.key == pygame.K_LEFT:
             self.ship.moving_left = False
 
-    def _check_play_button(self, mouse_pos):
+    def _check_play_button(self, mouse_pos, key_pressed):
         """This method checks whether the mouse down collided with game_button"""
-        button_clicked = self.game_button.rect.collidepoint(mouse_pos)
+        if mouse_pos != "":
+            button_clicked = self.game_button.rect.collidepoint(mouse_pos)
 
-        # only executed if button pressed and game is inactive
-        if button_clicked and not self.game_active:
+        # only executed if button pressed and game is inactive,
+        # or the space key is pressed
+        if key_pressed or (button_clicked and not self.game_active):
             # reset the game stats
             self.game_stats.reset_stats()
             self.game_active = True
