@@ -36,10 +36,16 @@ class AlienInvasion:
 
         # initialize game active flag check if game is over
         self.game_active = False
+        self.play_pressed = False
 
         # initialize the button and info text
         self.game_button = Button(self, "Play")
         self.info_text = SpaceInfoTexT(self)
+
+        # initialize easy, medium and expert button
+        self.easy_button = Button(self, msg="Easy")
+        self.medium_button = Button(self, msg="Medium")
+        self.expert_button = Button(self, msg="Expert")
 
     def run_game(self):
         """Start the main loop for the game"""
@@ -85,6 +91,12 @@ class AlienInvasion:
             self.game_button.draw_button()
             self.info_text.draw_text()
 
+        # if the play button is pressed draw difficulty level buttons
+        if self.play_pressed:
+            self.easy_button.draw_button()
+            self.medium_button.draw_button()
+            self.expert_button.draw_button()
+
         pygame.display.flip()
 
     def _check_keydown(self):
@@ -116,9 +128,9 @@ class AlienInvasion:
         # only executed if button pressed and game is inactive,
         # or the space key is pressed
         if (key_pressed and not self.game_active) or (button_clicked and not self.game_active):
+            self.play_pressed = True
             # reset the game stats
             self.game_stats.reset_stats()
-            self.game_active = True
 
             # remove the remaining fleet and bullets if game over
             self.aliens.empty()
@@ -128,8 +140,8 @@ class AlienInvasion:
             self._create_fleet()
             self.ship.center_ship()
 
-            # hide cursor
-            pygame.mouse.set_visible(False)
+    def _check_difficulty_button(self):
+        pass
 
     def _fire_bullet(self):
         """create a bullet instance and add into bullets group"""
