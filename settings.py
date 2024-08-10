@@ -50,7 +50,7 @@ class Settings:
         """initialize the expert difficulty dynamics"""
         self.ship_speed = 4.0
         self.alien_speed = 2.5
-        self.bullet_speed = 5
+        self.bullet_speed = 6
 
         # -1 for the left direction, 1 for the right direction
         self.fleet_direction = 1.0

@@ -9,6 +9,7 @@ from alien import Alien
 from game_statistics import GameStats
 from button import Button
 from play_text_info import SpaceInfoTexT
+from scoreboard import ScoreBoard
 
 
 class AlienInvasion:
@@ -46,6 +47,8 @@ class AlienInvasion:
         self.easy_button = Button(self, msg="Easy")
         self.medium_button = Button(self, msg="Medium")
         self.expert_button = Button(self, msg="Expert")
+
+        self.scoreboard = ScoreBoard(self)
 
     def run_game(self):
         """Start the main loop for the game"""
@@ -88,6 +91,7 @@ class AlienInvasion:
         for bullet in self.bullets.sprites():
             bullet.draw_bullet()
         self.aliens.draw(self.screen)
+        self.scoreboard.draw_score()
 
         # if game not active draw the button and text info
         if not self.game_active:

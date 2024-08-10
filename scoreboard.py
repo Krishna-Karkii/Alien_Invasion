@@ -26,3 +26,6 @@ class ScoreBoard:
         self.score_img_rect.right = self.screen_rect.right - 20
         self.score_img_rect.top = 20
 
+    def draw_score(self):
+        """draw the score image to its defined rect."""
+        self.screen.blit(self.score_img, self.score_img_rect)
