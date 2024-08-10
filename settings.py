@@ -20,19 +20,37 @@ class Settings:
 
         self.speed_up_scale = 1.25
 
-        self.initialize_dynamic_settings()
-
-    def initialize_dynamic_settings(self):
-        """initialize the dynamic values of the game"""
-        self.ship_speed = 2
-        self.alien_speed = 1.5
-        self.bullet_speed = 2.5
-
-        # -1 for the left direction, 1 for the right direction
-        self.fleet_direction = 1.0
+        self.initialize_easy_dynamics()
 
     def speed_up(self):
         """speed up the overall game"""
         self.ship_speed *= self.speed_up_scale
         self.alien_speed *= self.speed_up_scale
         self.bullet_speed *= self.speed_up_scale
+
+    def initialize_easy_dynamics(self):
+        """initialize the easy difficulty dynamics"""
+        self.ship_speed = 2.0
+        self.alien_speed = 1.5
+        self.bullet_speed = 2.5
+
+        # -1 for the left direction, 1 for the right direction
+        self.fleet_direction = 1.0
+
+    def initialize_medium_dynamics(self):
+        """initialize the medium difficulty dynamics"""
+        self.ship_speed = 3.0
+        self.alien_speed = 2.0
+        self.bullet_speed = 4
+
+        # -1 for the left direction, 1 for the right direction
+        self.fleet_direction = 1.0
+
+    def initialize_expert_dynamics(self):
+        """initialize the expert difficulty dynamics"""
+        self.ship_speed = 4.0
+        self.alien_speed = 2.5
+        self.bullet_speed = 5
+
+        # -1 for the left direction, 1 for the right direction
+        self.fleet_direction = 1.0

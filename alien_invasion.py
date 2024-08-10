@@ -76,7 +76,10 @@ class AlienInvasion:
 
             elif self.event.type == pygame.MOUSEBUTTONDOWN:
                 mouse_pos = pygame.mouse.get_pos()
-                self._check_play_button(mouse_pos, key_pressed=False)
+                if not self.play_pressed:
+                    self._check_play_button(mouse_pos, key_pressed=False)
+                else:
+                    self._check_difficulty_button(mouse_pos)
 
     def _update_screen(self):
         """Update images on screen and flip to new screen"""
@@ -140,8 +143,22 @@ class AlienInvasion:
             self._create_fleet()
             self.ship.center_ship()
 
-    def _check_difficulty_button(self):
-        pass
+    def _check_difficulty_button(self, mouse_pos):
+        """check which difficulty button is selected."""
+        if self.easy_button.rect.collidepoint(mouse_pos):
+            self.play_pressed = False
+            self.game_active = True
+            self.Settings.initialize_easy_dynamics()
+
+        elif self.medium_button.rect.collidepoint(mouse_pos):
+            self.play_pressed = False
+            self.game_active = True
+            self.Settings.initialize_medium_dynamics()
+
+        elif self.expert_button.rect.collidepoint(mouse_pos):
+            self.play_pressed = False
+            self.game_active = True
+            self.Settings.initialize_expert_dynamics()
 
     def _fire_bullet(self):
         """create a bullet instance and add into bullets group"""
@@ -230,7 +247,7 @@ class AlienInvasion:
 
         else:
             self.game_active = False
-            self.Settings.initialize_dynamic_settings()
+            self.Settings.initialize_easy_dynamics()
             pygame.mouse.set_visible(True)
 
     def _check_alien_bottom(self):
