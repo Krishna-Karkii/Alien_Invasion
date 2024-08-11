@@ -13,9 +13,10 @@ class ScoreBoard:
         self.font_color = (30, 30, 30)
         self.font = pygame.font.SysFont(None, 48)
 
-        # prepare the initial score, and high score image
+        # prepare the initial score, level and high score image
         self.prep_score()
         self.prep_high_score()
+        self.prep_level()
 
     def prep_score(self):
         """prepare the score image to display on the window."""
@@ -49,5 +50,20 @@ class ScoreBoard:
         self.highscore_img_rect.top = self.score_img_rect.top
 
     def draw_high_score(self):
-        """draw the high score to the surface in its defined position"""
+        """draw the high score on the surface."""
         self.screen.blit(self.highscore_img, self.highscore_img_rect)
+
+    def prep_level(self):
+        """prepare the level image and
+        set its position respective to the window."""
+        level = f"Level: {str(self.stats.level)}"
+        self.level_img = self.font.render(level, True, self.font_color)
+
+        # set the position of the level image
+        self.level_img_rect = self.level_img.get_rect()
+        self.level_img_rect.top = 70
+        self.level_img_rect.right = self.screen_rect.right - 20
+
+    def draw_level(self):
+        """draw the level image on the surface."""
+        self.screen.blit(self.level_img, self.level_img_rect)

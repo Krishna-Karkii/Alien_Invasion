@@ -10,6 +10,7 @@ class GameStats:
         """initialize statistics that can change during the game."""
         self.ships_left = self.settings.ship_limit
         self.score = 0
+        self.level = 1
 
     def check_high_score(self):
         """check if the current score is greater than high score"""

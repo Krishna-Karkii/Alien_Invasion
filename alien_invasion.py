@@ -93,9 +93,10 @@ class AlienInvasion:
             bullet.draw_bullet()
         self.aliens.draw(self.screen)
 
-        # draw the scores on the surface
+        # draw the scores, level on the surface
         self.scoreboard.draw_score()
         self.scoreboard.draw_high_score()
+        self.scoreboard.draw_level()
 
         # if game not active draw the button and text info
         if not self.game_active:
@@ -104,6 +105,10 @@ class AlienInvasion:
 
         # if the play button is pressed draw difficulty level buttons
         if self.play_pressed:
+            # prepare message for level after reset
+            self.scoreboard.prep_level()
+
+            # draw the difficulty buttons
             self.easy_button.draw_button()
             self.medium_button.draw_button()
             self.expert_button.draw_button()
@@ -195,6 +200,10 @@ class AlienInvasion:
             # Destroy existing bullets and create new fleet.
             self.bullets.empty()
             self._create_fleet()
+
+            # increment the level, prepare the level image
+            self.game_stats.level += 1
+            self.scoreboard.prep_level()
 
             # speeding up the pace and increasing the points
             self.Settings.speed_up()
