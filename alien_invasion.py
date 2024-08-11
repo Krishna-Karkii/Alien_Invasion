@@ -48,6 +48,7 @@ class AlienInvasion:
         self.medium_button = Button(self, msg="Medium")
         self.expert_button = Button(self, msg="Expert")
 
+        # creating a scoreboard
         self.scoreboard = ScoreBoard(self)
 
     def run_game(self):
@@ -136,8 +137,9 @@ class AlienInvasion:
         # or the space key is pressed
         if (key_pressed and not self.game_active) or (button_clicked and not self.game_active):
             self.play_pressed = True
-            # reset the game stats
+            # reset the game stats and reset the scoreboard
             self.game_stats.reset_stats()
+            self.scoreboard.prep_score()
 
             # remove the remaining fleet and bullets if game over
             self.aliens.empty()
@@ -177,16 +179,19 @@ class AlienInvasion:
         # check for any bullets that have hit aliens.
         collisions = pygame.sprite.groupcollide(self.bullets, self.aliens, True, True)
 
-        # add score of 10 if alien destroyed
+        # add score if alien destroyed
         if collisions:
-            self.game_stats.score += len(collisions) * 10
+            self.game_stats.score += int(len(collisions) * self.Settings.alien_points)
             self.scoreboard.prep_score()
 
         if not self.aliens:
             # Destroy existing bullets and create new fleet.
             self.bullets.empty()
             self._create_fleet()
+
+            # speeding up the pace and increasing the points
             self.Settings.speed_up()
+            self.Settings.alien_points *= self.Settings.alien_points_up
 
     def _update_bullets(self):
         """manages the bullets in the screen"""

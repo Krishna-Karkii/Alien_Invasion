@@ -19,6 +19,7 @@ class Settings:
         self.ship_limit = 3
 
         self.speed_up_scale = 1.25
+        self.alien_points_up = 1.5
 
         self.initialize_easy_dynamics()
 
@@ -33,6 +34,7 @@ class Settings:
         self.ship_speed = 2.0
         self.alien_speed = 1.5
         self.bullet_speed = 2.5
+        self.alien_points = 10
 
         # -1 for the left direction, 1 for the right direction
         self.fleet_direction = 1.0
