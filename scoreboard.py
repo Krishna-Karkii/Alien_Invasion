@@ -18,7 +18,10 @@ class ScoreBoard:
 
     def prep_score(self):
         """prepare the score image to display on the window."""
-        score = "Score: " + str(self.stats.score)
+        # round the score to the nearest 10 and give appropriate commas
+        self.stats.score = round(self.stats.score, -1)
+        score = f"Score: {self.stats.score:,}"
+
         self.score_img = self.font.render(score, True, self.font_color)
 
         # position the image rect top-right to window top-right
