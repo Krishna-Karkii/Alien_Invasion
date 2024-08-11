@@ -48,3 +48,6 @@ class ScoreBoard:
         self.highscore_img_rect.centerx = self.screen_rect.centerx
         self.highscore_img_rect.top = self.score_img_rect.top
 
+    def draw_high_score(self):
+        """draw the high score to the surface in its defined position"""
+        self.screen.blit(self.highscore_img, self.highscore_img_rect)

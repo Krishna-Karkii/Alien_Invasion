@@ -92,7 +92,10 @@ class AlienInvasion:
         for bullet in self.bullets.sprites():
             bullet.draw_bullet()
         self.aliens.draw(self.screen)
+
+        # draw the scores on the surface
         self.scoreboard.draw_score()
+        self.scoreboard.draw_high_score()
 
         # if game not active draw the button and text info
         if not self.game_active:
@@ -183,6 +186,10 @@ class AlienInvasion:
         if collisions:
             self.game_stats.score += int(len(collisions) * self.Settings.alien_points)
             self.scoreboard.prep_score()
+
+            # check if score is higher than high score
+            self.game_stats.check_high_score()
+            self.scoreboard.prep_high_score()
 
         if not self.aliens:
             # Destroy existing bullets and create new fleet.
