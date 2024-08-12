@@ -31,10 +31,6 @@ class ScoreBoard:
         self.score_img_rect.right = self.screen_rect.right - 20
         self.score_img_rect.top = 20
 
-    def draw_score(self):
-        """draw the score image to its defined rect."""
-        self.screen.blit(self.score_img, self.score_img_rect)
-
     def prep_high_score(self):
         """prepare the high score image and
         set its position respective to the window."""
@@ -49,14 +45,10 @@ class ScoreBoard:
         self.highscore_img_rect.centerx = self.screen_rect.centerx
         self.highscore_img_rect.top = self.score_img_rect.top
 
-    def draw_high_score(self):
-        """draw the high score on the surface."""
-        self.screen.blit(self.highscore_img, self.highscore_img_rect)
-
     def prep_level(self):
         """prepare the level image and
         set its position respective to the window."""
-        level = f"Level: {str(self.stats.level)}"
+        level = f"Level: {self.stats.level}"
         self.level_img = self.font.render(level, True, self.font_color)
 
         # set the position of the level image
@@ -64,6 +56,11 @@ class ScoreBoard:
         self.level_img_rect.top = 70
         self.level_img_rect.right = self.screen_rect.right - 20
 
-    def draw_level(self):
-        """draw the level image on the surface."""
+    def draw_score(self):
+        """draw the images of the scores,and level."""
+        # current score of the player
+        self.screen.blit(self.score_img, self.score_img_rect)
+        # high score of the player
+        self.screen.blit(self.highscore_img, self.highscore_img_rect)
+        # current level of the player
         self.screen.blit(self.level_img, self.level_img_rect)

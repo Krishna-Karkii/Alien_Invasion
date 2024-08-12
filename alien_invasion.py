@@ -95,8 +95,6 @@ class AlienInvasion:
 
         # draw the scores, level on the surface
         self.scoreboard.draw_score()
-        self.scoreboard.draw_high_score()
-        self.scoreboard.draw_level()
 
         # if game not active draw the button and text info
         if not self.game_active:
