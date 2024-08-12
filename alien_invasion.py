@@ -93,7 +93,7 @@ class AlienInvasion:
             bullet.draw_bullet()
         self.aliens.draw(self.screen)
 
-        # draw the scores, level on the surface
+        # draw the scores,ships left, level on the surface
         self.scoreboard.draw_score()
 
         # if game not active draw the button and text info
@@ -162,15 +162,24 @@ class AlienInvasion:
             self.game_active = True
             self.Settings.initialize_easy_dynamics()
 
+            # prepare the ships lefts of user
+            self.scoreboard.prep_ship()
+
         elif self.medium_button.rect.collidepoint(mouse_pos):
             self.play_pressed = False
             self.game_active = True
             self.Settings.initialize_medium_dynamics()
 
+            # prepare ship lefts of user
+            self.scoreboard.prep_ship()
+
         elif self.expert_button.rect.collidepoint(mouse_pos):
             self.play_pressed = False
             self.game_active = True
             self.Settings.initialize_expert_dynamics()
+
+            # prepare ship lefts of user
+            self.scoreboard.prep_ship()
 
     def _fire_bullet(self):
         """create a bullet instance and add into bullets group"""
@@ -262,6 +271,8 @@ class AlienInvasion:
         """This method handles necessary tasks after ship is hit"""
         if self.game_stats.ships_left > 0:
             self.game_stats.ships_left -= 1
+            # prepare ship to show after the ship is hit
+            self.scoreboard.prep_ship()
 
             # empty the aliens and bullets after the ship is hit
             self.aliens.empty()

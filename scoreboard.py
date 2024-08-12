@@ -1,10 +1,14 @@
 import pygame.font
+from pygame.sprite import Group
+
+from ship import Ship
 
 
 class ScoreBoard:
     """This class is related to the score of the game."""
     def __init__(self, ai_game):
         """initialize the attributes of the scoreboard."""
+        self.ai_game = ai_game
         self.screen = ai_game.screen
         self.screen_rect = self.screen.get_rect()
         self.stats = ai_game.game_stats
@@ -13,16 +17,17 @@ class ScoreBoard:
         self.font_color = (30, 30, 30)
         self.font = pygame.font.SysFont(None, 48)
 
-        # prepare the initial score, level and high score image
+        # prepare the initial score, level, ships left and high score image
         self.prep_score()
         self.prep_high_score()
         self.prep_level()
+        self.prep_ship()
 
     def prep_score(self):
         """prepare the score image to display on the window."""
         # round the score to the nearest 10 and give appropriate commas
         self.stats.score = round(self.stats.score, -1)
-        score = f"Score: {self.stats.score:,}"
+        score = f"{self.stats.score:,}"
 
         self.score_img = self.font.render(score, True, self.font_color)
 
@@ -48,13 +53,23 @@ class ScoreBoard:
     def prep_level(self):
         """prepare the level image and
         set its position respective to the window."""
-        level = f"Level: {self.stats.level}"
+        level = f"{self.stats.level}"
         self.level_img = self.font.render(level, True, self.font_color)
 
         # set the position of the level image
         self.level_img_rect = self.level_img.get_rect()
         self.level_img_rect.top = 70
         self.level_img_rect.right = self.screen_rect.right - 20
+
+    def prep_ship(self):
+        """prepare the ship image, add it in ships group after
+        defining the ship's position"""
+        self.ships = Group()
+        for num in range(self.stats.ships_left):
+            ship = Ship(self.ai_game)
+            ship.rect.x = 10 + num * ship.rect.width
+            ship.rect.y = 10
+            self.ships.add(ship)
 
     def draw_score(self):
         """draw the images of the scores,and level."""
@@ -64,3 +79,5 @@ class ScoreBoard:
         self.screen.blit(self.highscore_img, self.highscore_img_rect)
         # current level of the player
         self.screen.blit(self.level_img, self.level_img_rect)
+        # draw the ship
+        self.ships.draw(self.screen)
