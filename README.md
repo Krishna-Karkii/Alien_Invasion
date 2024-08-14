@@ -31,7 +31,7 @@ Here is the current condition of the game:
 * Run the Game
 
 ## Contribution:
-if you found a issue or want to improve this project, Fell free
+if you found a issue or want to improve this project, Feel free
 to contribute by following steps:
 * Fork a repository and create a new branch for your changes.
 * Make your changes and commit them with clear messages.
