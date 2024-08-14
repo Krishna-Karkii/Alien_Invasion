@@ -30,23 +30,19 @@ class AlienInvasion:
 
         self.ship = Ship(self)
 
+        # make the bullets and aliens groups
         self.bullets = pygame.sprite.Group()
         self.aliens = pygame.sprite.Group()
 
+        # create the first fleet of the game
         self._create_fleet()
 
         # initialize game active flag check if game is over
         self.game_active = False
         self.play_pressed = False
 
-        # initialize the button and info text
-        self.game_button = Button(self, "Play")
-        self.info_text = SpaceInfoTexT(self)
-
-        # initialize easy, medium and expert button
-        self.easy_button = Button(self, msg="Easy")
-        self.medium_button = Button(self, msg="Medium")
-        self.expert_button = Button(self, msg="Expert")
+        # initialize the buttons of the game
+        self._initialize_buttons()
 
         # creating a scoreboard
         self.scoreboard = ScoreBoard(self)
@@ -54,15 +50,18 @@ class AlienInvasion:
     def run_game(self):
         """Start the main loop for the game"""
         while True:
-            # call the methods required in main loop
+            # check the event related to mouse and keyboard presses
             self._check_events()
 
+            # only move the objects if game active
             if self.game_active:
                 self.ship.update()
                 self._update_bullets()
                 self._update_alien()
 
+            # update the frame, like background, draw images before flipping it
             self._update_screen()
+            pygame.display.flip()
             # Customizing for 60 Frames per second
             self.clock.tick(80)
 
@@ -87,7 +86,10 @@ class AlienInvasion:
 
     def _update_screen(self):
         """Update images on screen and flip to new screen"""
+        # set the frame background color
         self.screen.fill(self.Settings.bg_color)
+
+        # blit/draw images and rects after setting the background color
         self.ship.blitme()
         for bullet in self.bullets.sprites():
             bullet.draw_bullet()
@@ -101,17 +103,8 @@ class AlienInvasion:
             self.game_button.draw_button()
             self.info_text.draw_text()
 
-        # if the play button is pressed draw difficulty level buttons
-        if self.play_pressed:
-            # prepare message for level after reset
-            self.scoreboard.prep_level()
-
-            # draw the difficulty buttons
-            self.easy_button.draw_button()
-            self.medium_button.draw_button()
-            self.expert_button.draw_button()
-
-        pygame.display.flip()
+        # check if the play button pressed
+        self._check_play_pressed()
 
     def _check_keydown(self):
         """checks for event related to keydown"""
@@ -285,8 +278,8 @@ class AlienInvasion:
             time.sleep(0.5)
 
         else:
+            # if no ship left stop game, active the mouse visibility
             self.game_active = False
-            self.Settings.initialize_easy_dynamics()
             pygame.mouse.set_visible(True)
 
     def _check_alien_bottom(self):
@@ -297,7 +290,8 @@ class AlienInvasion:
                 break
 
     def _update_alien(self):
-        """update alien fleet movement"""
+        """update alien fleet movement,
+        and check if the alien collided with ship."""
         self._check_fleet_edges()
         self.aliens.update()
 
@@ -306,6 +300,30 @@ class AlienInvasion:
             self._ship_hit()
         # check if any alien hit the bottom
         self._check_alien_bottom()
+
+    def _initialize_buttons(self):
+        """initialize all the game buttons, and text info."""
+        # initialize the Play button and info text
+        self.game_button = Button(self, "Play")
+        self.info_text = SpaceInfoTexT(self)
+
+        # initialize easy, medium and expert button
+        self.easy_button = Button(self, msg="Easy")
+        self.medium_button = Button(self, msg="Medium")
+        self.expert_button = Button(self, msg="Expert")
+
+    def _check_play_pressed(self):
+        """check if the play button is pressed,
+        and if pressed perform necessary actions."""
+        # if the play button is pressed draw difficulty level buttons
+        if self.play_pressed:
+            # prepare message for level after reset
+            self.scoreboard.prep_level()
+
+            # draw the difficulty buttons
+            self.easy_button.draw_button()
+            self.medium_button.draw_button()
+            self.expert_button.draw_button()
 
 
 if __name__ == "__main__":
